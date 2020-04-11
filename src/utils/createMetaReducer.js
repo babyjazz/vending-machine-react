@@ -7,7 +7,7 @@ export const initialState = {
     isSuccess: false,
     isFailure: false,
   },
-  data: {},
+  data: undefined,
 };
 
 /**

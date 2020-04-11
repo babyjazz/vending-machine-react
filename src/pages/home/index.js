@@ -1,13 +1,18 @@
 import React from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { listUserAction } from "store/user";
+import { userSelectors } from "store/user";
+import isPlainObject from "lodash/isPlainObject";
 import logo from "assets/images/logo.svg";
 import styles from "./home.module.scss";
 
 export default function Home() {
   const dispatch = useDispatch();
-  const fetchUser = () => {
-    dispatch(listUserAction.request({ userId: 2 }));
+  const users = useSelector(userSelectors.listUsersData);
+  const usersStatus = useSelector(userSelectors.listUsersMeta);
+
+  const fetchUser = ({ userId }) => {
+    dispatch(listUserAction.request({ userId }));
   };
 
   return (
@@ -24,7 +29,21 @@ export default function Home() {
             <li className={styles.description}>Press 'Fetch User'</li>
             <li className={styles.description}>See how redux structure is</li>
           </ul>
-          <button onClick={fetchUser}>Fetch User</button>
+          <button onClick={fetchUser}>Fetch list users</button>
+          <button onClick={() => fetchUser({ userId: 2 })}>Fetch user</button>
+          <ul className={styles.list}>
+            {usersStatus.isRequesting ? (
+              <p>Loading...</p>
+            ) : usersStatus.isSuccess ? (
+              isPlainObject(users) ? (
+                <li>{users.email}</li>
+              ) : (
+                users.map((user, i) => <li key={i}>{user.email}</li>)
+              )
+            ) : (
+              <li>Fetch Error</li>
+            )}
+          </ul>
         </div>
       </header>
     </div>
