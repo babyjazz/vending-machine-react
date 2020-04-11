@@ -46,9 +46,12 @@
     "pretty-quick": "^2.0.1",
     "stylelint-prettier": "^1.1.2"
   },
+  "lint-staged": {
+    "src/**/*.js": "prettier --write"
+  },
   "husky": {
     "hooks": {
-      "pre-commit": "pretty-quick --staged"
+      "pre-commit": "lint-staged"
     }
   }
 }
