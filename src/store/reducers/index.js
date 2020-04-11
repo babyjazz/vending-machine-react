@@ -1,6 +1,6 @@
 import { combineReducers } from "@reduxjs/toolkit";
-import { userReducer } from "store/user";
+import { userReducer as user } from "store/user";
 
 export default combineReducers({
-  user: userReducer,
+  user,
 });

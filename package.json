@@ -1,5 +1,5 @@
 {
-  "name": "react-redux-saga-builerplate",
+  "name": "react-redux-saga-boilerplate",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -10,6 +10,7 @@
     "axios": "^0.19.2",
     "humps": "^2.0.1",
     "lodash": "^4.17.15",
+    "node-sass": "^4.13.1",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "react-redux": "^7.1.3",
