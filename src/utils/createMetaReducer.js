@@ -1,4 +1,4 @@
-import { createReducer } from "@reduxjs/toolkit";
+import { createReducer } from '@reduxjs/toolkit'
 
 export const initialState = {
   meta: {
@@ -8,7 +8,7 @@ export const initialState = {
     isFailure: false,
   },
   data: undefined,
-};
+}
 
 /**
  *
@@ -23,7 +23,7 @@ export function createMetaReducer(action, defaultState = initialState) {
         ...state,
         ...defaultState,
         meta: { ...defaultState.meta, isRequesting: true },
-      };
+      }
     },
     [action.success]: (state, { payload }) => {
       return {
@@ -31,7 +31,7 @@ export function createMetaReducer(action, defaultState = initialState) {
         ...defaultState,
         meta: { ...defaultState.meta, isSuccess: true },
         data: payload,
-      };
+      }
     },
     [action.failure]: (state, { payload }) => {
       return {
@@ -39,8 +39,8 @@ export function createMetaReducer(action, defaultState = initialState) {
         ...defaultState,
         meta: { ...defaultState.meta, isFailure: true },
         data: payload,
-      };
+      }
     },
-  });
-  return reducer;
+  })
+  return reducer
 }

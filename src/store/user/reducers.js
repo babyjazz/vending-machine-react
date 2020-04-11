@@ -1,8 +1,8 @@
-import { combineReducers } from "@reduxjs/toolkit";
-import { createActions } from "utils/createActions";
-import { createMetaReducer } from "utils/createMetaReducer";
+import { combineReducers } from '@reduxjs/toolkit'
+import { createActions } from 'utils/createActions'
+import { createMetaReducer } from 'utils/createMetaReducer'
 
-export const listUserAction = createActions("LIST_USER");
+export const listUserAction = createActions('LIST_USER')
 
 export const userReducer = combineReducers({
   list: createMetaReducer(listUserAction),
@@ -11,4 +11,4 @@ export const userReducer = combineReducers({
   //     return {...state, value: action.payload}
   //   }
   // })
-});
+})

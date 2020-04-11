@@ -1,24 +1,24 @@
-import React from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { listUserAction } from "store/user";
-import { userSelectors } from "store/user";
-import isPlainObject from "lodash/isPlainObject";
-import logo from "assets/images/logo.svg";
-import styles from "./home.module.scss";
+import React from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { listUserAction } from 'store/user'
+import { userSelectors } from 'store/user'
+import isPlainObject from 'lodash/isPlainObject'
+import logo from 'assets/images/logo.svg'
+import styles from './home.module.scss'
 
 export default function Home() {
-  const dispatch = useDispatch();
-  const users = useSelector(userSelectors.listUsersData);
-  const usersStatus = useSelector(userSelectors.listUsersMeta);
+  const dispatch = useDispatch()
+  const users = useSelector(userSelectors.listUsersData)
+  const usersStatus = useSelector(userSelectors.listUsersMeta)
 
   const fetchUser = ({ userId }) => {
-    dispatch(listUserAction.request({ userId }));
-  };
+    dispatch(listUserAction.request({ userId }))
+  }
 
   return (
     <div className={styles.App}>
       <header className={styles.appHeader}>
-        <img src={logo} className={styles.App_logo} alt='logo' />
+        <img src={logo} className={styles.App_logo} alt="logo" />
         <div>
           <p className={styles.title}>
             Boilerplate for redux-saga and map status of fetching as a meta key
@@ -47,5 +47,5 @@ export default function Home() {
         </div>
       </header>
     </div>
-  );
+  )
 }
