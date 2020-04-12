@@ -2,18 +2,57 @@ React Boilerplate with redux-saga and redux-toolkits
 
 --------------------------------------------------------------------------------
 
-# Guideline
+## Guideline
 
-## Redux Structure
+### Redux State Structure
 
-default structure is
+design structural is
 
-- feature (user, product, item, ...)
-
-  - action (list, get, update, delete, ...)
-
-    - meta (status of request)
-    - data
+```json
+{
+  user: {
+    list: {
+      meta: {
+        isInitialize: true,
+        isRequesting: false,
+        isSuccess: false,
+        isFailure: false
+      },
+      data: {
+        ...
+      }
+    },
+    update: {
+      meta: {
+        isInitialize: true,
+        isRequesting: false,
+        isSuccess: false,
+        isFailure: false
+      },
+      data: {
+        ...
+      }
+    }
+  },
+  product: {
+    list: {
+      meta: {
+        isInitialize: true,
+        isRequesting: false,
+        isSuccess: false,
+        isFailure: false
+      },
+      data: {
+        ...
+      }
+    },
+    ...
+  },
+  other: {
+    ...
+  }
+}
+```
 
 ### Create Reducer
 
