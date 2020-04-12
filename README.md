@@ -27,7 +27,7 @@ export const userReducer = combineReducers({
   list: createMetaReducer(listUserAction),
   // Customize reducer (use normal createReducer function from toolkits)
   customKey: createReducer({...initialValue}, {
-    [customAction.request]: (state, action) => {
+    [customAction]: (state, action) => {
       return {...state, value: action.payload}
     }
   })
@@ -47,7 +47,7 @@ or you can create action with uncommon action like this
 import { createAction } from '@reduxjs/toolkit'
 
 // Customize action (use normal createAction function from toolkits)
-export const listUserAction = createAction('LIST_USER')
+export const customAction = createAction('CUSTOM_ACTION')
 ```
 
 ---

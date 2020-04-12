@@ -7,7 +7,7 @@ export const listUserAction = createActions('LIST_USER')
 export const userReducer = combineReducers({
   list: createMetaReducer(listUserAction),
   // customKey: createReducer({...initialValue}, {
-  //   [customAction.request]: (state, action) => {
+  //   [customAction]: (state, action) => {
   //     return {...state, value: action.payload}
   //   }
   // })
