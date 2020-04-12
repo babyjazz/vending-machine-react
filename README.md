@@ -1,19 +1,25 @@
 React Boilerplate with redux-saga and redux-toolkits
 
----
+--------------------------------------------------------------------------------
 
-## Guideline
+# Guideline
 
-### Redux Structure
-default structure is 
+## Redux Structure
+
+default structure is
+
 - feature (user, product, item, ...)
+
   - action (list, get, update, delete, ...)
+
     - meta (status of request)
     - data
 
-#### Create Reducer
+### Create Reducer
+
 You can use common reducer of fetching like this
-```js 
+
+```javascript
 import { createMetaReducer } from 'utils/createMetaReducer'
 
 export const userReducer = combineReducers({
@@ -22,7 +28,8 @@ export const userReducer = combineReducers({
 ```
 
 or customize uncommon reducer like this
-```js
+
+```javascript
 export const userReducer = combineReducers({
   list: createMetaReducer(listUserAction),
   // Customize reducer (use normal createReducer function from toolkits)
@@ -34,23 +41,45 @@ export const userReducer = combineReducers({
 })
 ```
 
-#### Create Action
+or customize uncommon reducer case and initial state like this
+
+```javascript
+import { createMetaReducer, initialState } from 'utils/createMetaReducer'
+
+customReducerCase: createMetaReducer(listUserAction, {...initialState, customValue: false}, {
+    [listUserAction.success]: (state) => {
+      return {
+        ...state,
+        ...initialState,
+        meta: { ...initialState.meta, isRequesting: true },
+        data: 'custom data only for success case'
+      }
+    },
+  }),
+```
+
+### Create Action
+
 Create Action with common action of fetching
-```js
+
+```javascript
 import { createActions } from 'utils/createActions'
 
 export const listUserAction = createActions('LIST_USER')
 ```
 
 or you can create action with uncommon action like this
-```js
+
+```javascript
 import { createAction } from '@reduxjs/toolkit'
 
 // Customize action (use normal createAction function from toolkits)
 export const customAction = createAction('CUSTOM_ACTION')
 ```
 
----
-#### More information
-- redux-toolkits https://redux-toolkit.js.org/
-- redux-saga https://github.com/redux-saga/redux-saga
+--------------------------------------------------------------------------------
+
+### More information
+
+- redux-toolkits <https://redux-toolkit.js.org/>
+- redux-saga <https://github.com/redux-saga/redux-saga>

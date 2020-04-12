@@ -16,7 +16,11 @@ export const initialState = {
  * @param action: action name
  * @return reducer with meta and data
  */
-export function createMetaReducer(action, defaultState = initialState) {
+export function createMetaReducer(
+  action,
+  defaultState = initialState,
+  customReducerCase
+) {
   const reducer = createReducer(defaultState, {
     [action.request]: (state) => {
       return {
@@ -41,6 +45,7 @@ export function createMetaReducer(action, defaultState = initialState) {
         data: payload,
       }
     },
+    ...customReducerCase,
   })
   return reducer
 }
