@@ -1,19 +1,20 @@
-import { fork, take, call, put } from 'redux-saga/effects'
-import { listUserRequest } from 'api'
-import { listUserAction } from './reducers'
+import { takeEvery, call, put } from 'redux-saga/effects'
+import { userApi } from 'api'
+import { userActions } from './reducers'
 
-function* listUserWatcher() {
-  while (true) {
-    const { payload } = yield take(listUserAction.request)
-    try {
-      const response = yield call(listUserRequest, payload)
-      yield put(listUserAction.success(response.data))
-    } catch (error) {
-      yield put(listUserAction.failure(error))
-    }
+function* listUser(action) {
+  try {
+    const response = yield call(userApi.listUser, action.payload)
+    yield put(userActions.list.success(response))
+  } catch (error) {
+    yield put(userActions.list.failure(error))
   }
 }
 
-export default function* rootSaga() {
-  yield fork(listUserWatcher)
+function* listUserWatcher() {
+  yield takeEvery(userActions.list.start.toString(), listUser)
 }
+
+const userSagas = { listUserWatcher }
+
+export default userSagas

@@ -1,9 +1,3 @@
-import request from 'utils/request'
+import userApi from './user'
 
-export async function listUserRequest({ userId }) {
-  if (userId) {
-    return request(`/users/${userId}?delay=1`)
-  } else {
-    return request('/users?delay=1')
-  }
-}
+export { userApi }

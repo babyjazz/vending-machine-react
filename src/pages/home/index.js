@@ -1,29 +1,30 @@
-import React from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { listUserAction } from 'store/user'
-import { userSelectors } from 'store/user'
+import { userActions, userSelectors } from 'store/user'
 import isPlainObject from 'lodash/isPlainObject'
-import logo from 'assets/images/logo.svg'
-import styles from './home.module.scss'
+import { LogoImage } from 'assets/images'
+import styles from './index.module.scss'
 
 export default function Home() {
   const dispatch = useDispatch()
-  const users = useSelector(userSelectors.listUsersData)
-  const usersStatus = useSelector(userSelectors.listUsersMeta)
+  const { data, loading, success } = useSelector(userSelectors.listUser)
+  const user = data?.data
+  const fetchUser = useCallback(
+    (_data) => {
+      dispatch(userActions.list.start(_data))
+    },
+    [dispatch]
+  )
 
-  const fetchUser = ({ userId }) => {
-    dispatch(listUserAction.request({ userId }))
-  }
+  useEffect(() => {
+    fetchUser()
+  }, [fetchUser])
 
   return (
-    <div className={styles.App}>
+    <div className={styles.container}>
+      <LogoImage className={styles.logo} />
       <header className={styles.appHeader}>
-        <img src={logo} className={styles.App_logo} alt="logo" />
         <div>
-          <p className={styles.title}>
-            Boilerplate for redux-saga and map status of fetching as a meta key
-            in redux store
-          </p>
           <ul className={styles.list}>
             <li className={styles.description}>Open redux devtools</li>
             <li className={styles.description}>Press 'Fetch User'</li>
@@ -31,17 +32,22 @@ export default function Home() {
           </ul>
           <button onClick={fetchUser}>Fetch list users</button>
           <button onClick={() => fetchUser({ userId: 2 })}>Fetch user</button>
+
           <ul className={styles.list}>
-            {usersStatus.isRequesting ? (
+            {loading ? (
               <p>Loading...</p>
-            ) : usersStatus.isSuccess ? (
-              isPlainObject(users) ? (
-                <li>{users.email}</li>
-              ) : (
-                users.map((user, i) => <li key={i}>{user.email}</li>)
-              )
             ) : (
-              <li>Fetch Error</li>
+              <>
+                {success ? (
+                  isPlainObject(user) ? (
+                    <li>{user?.email}</li>
+                  ) : (
+                    user?.map((data, i) => <li key={i}>{data.email}</li>)
+                  )
+                ) : (
+                  <li>Fetch Error</li>
+                )}
+              </>
             )}
           </ul>
         </div>

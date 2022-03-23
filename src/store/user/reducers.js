@@ -1,24 +1,63 @@
-import { combineReducers } from '@reduxjs/toolkit'
-import { createActions } from 'utils/createActions'
-import { createMetaReducer } from 'utils/createMetaReducer'
+import { handleActions, createActions } from 'redux-actions'
 
-export const listUserAction = createActions('LIST_USER')
+const options = {
+  prefix: 'USER',
+}
 
-export const userReducer = combineReducers({
-  lists: createMetaReducer(listUserAction),
-  // customReducerCase: createMetaReducer(listUserAction, {...initialState, customValue: false}, {
-  //   [listUserAction.success]: (state) => {
-  //     return {
-  //       ...state,
-  //       ...initialState,
-  //       meta: { ...initialState.meta, isRequesting: true },
-  //       data: 'custom data only for success case'
-  //     }
-  //   },
-  // }),
-  // customKey: createReducer({...initialValue}, {
-  //   [customAction]: (state, action) => {
-  //     return {...state, value: action.payload}
-  //   }
-  // })
-})
+const initialStatus = {
+  loading: false,
+  success: false,
+  data: {},
+  failure: false,
+  error: null,
+}
+
+export const userActions = createActions(
+  {
+    LIST: {
+      START: undefined,
+      SUCCESS: undefined,
+      FAILURE: undefined,
+    },
+  },
+  options
+)
+
+export const userReducer = handleActions(
+  new Map([
+    [
+      userActions.list.start,
+      (state) => ({
+        ...state,
+        list: {
+          ...initialStatus,
+          loading: true,
+        },
+      }),
+    ],
+    [
+      userActions.list.success,
+      (state, action) => ({
+        ...state,
+        list: {
+          ...initialStatus,
+          success: true,
+          data: action.payload,
+        },
+      }),
+    ],
+    [
+      userActions.list.failure,
+      (state, action) => ({
+        ...state,
+        list: {
+          ...initialStatus,
+          failure: true,
+          error: action.payload,
+        },
+      }),
+    ],
+  ]),
+  { list: initialStatus },
+  options
+)
