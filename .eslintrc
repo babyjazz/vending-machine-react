@@ -1,9 +1,0 @@
-{
-  "parser": "babel-eslint",
-  "rules": {
-    "semi": ["error", "never"],
-    "quotes": ["error", "single"],
-    "react/display-name": [false, { "ignoreTranspilerName": false }]
-  },
-  "extends": ["eslint:recommended", "plugin:react/recommended"]
-}

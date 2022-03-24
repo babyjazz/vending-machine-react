@@ -1,0 +1,6 @@
+src/serviceWorker.js
+public/**/*
+src/**/*.scss
+src/**/*.css
+src/**/*.less
+reportWebVitals.js

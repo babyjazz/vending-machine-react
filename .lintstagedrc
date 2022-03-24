@@ -1,0 +1,14 @@
+{
+  "src/**/*.js?(x)": [
+    "eslint src/* --fix",
+    "git add"
+  ],
+  "src/**/*.{scss,css,less}": [
+    "prettier --write",
+    "git add"
+  ],
+  "*,{json,md}": [
+    "prettier --write",
+    "git add"
+  ]
+}
