@@ -3,7 +3,7 @@
 	  "react-app",
 	  "airbnb",
 	  "plugin:prettier/recommended",
-	  "prettier"
+	  "prettier/prettier"
 	],
 	"rules": {
 	  "react/jsx-filename-extension": [
@@ -12,6 +12,7 @@
 		  "extensions": [".js", ".test.js", ".jsx"]
 		}
 	  ],
+	  "react/jsx-uses-react": [0],
 	  "react/react-in-jsx-scope": [0],
 	  "jsx-a11y/anchor-is-valid": [0],
 	  "jsx-a11y/click-events-have-key-events": [0],

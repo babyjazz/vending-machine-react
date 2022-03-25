@@ -20,7 +20,7 @@ export const userActions = createActions(
       FAILURE: undefined,
     },
   },
-  options
+  options,
 )
 
 export const userReducer = handleActions(
@@ -59,5 +59,5 @@ export const userReducer = handleActions(
     ],
   ]),
   { list: initialStatus },
-  options
+  options,
 )

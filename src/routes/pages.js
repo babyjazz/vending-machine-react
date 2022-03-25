@@ -5,7 +5,7 @@ const pages = [
   {
     name: 'default',
     path: pageNamePathMap.default,
-    component: Home,
+    Component: Home,
     exact: true,
     authProtected: false,
   },
