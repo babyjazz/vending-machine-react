@@ -179,19 +179,17 @@ export default function Home() {
           />
 
           <Menu mode="inline" defaultSelectedKeys={['1']}>
-            {bankNotesArray
-              .sort((a, b) => b?.createdAt - a?.createdAt)
-              .map((bankNote) => (
-                <Menu.Item key={bankNote}>
-                  <Button
-                    block
-                    onClick={() => handlePayBankNote(bankNote)}
-                    disabled={!selectedProduct}
-                  >
-                    {new BigNumber(bankNotesMapper[bankNote]).toFormat()}
-                  </Button>
-                </Menu.Item>
-              ))}
+            {bankNotesArray.map((bankNote) => (
+              <Menu.Item key={bankNote}>
+                <Button
+                  block
+                  onClick={() => handlePayBankNote(bankNote)}
+                  disabled={!selectedProduct}
+                >
+                  {new BigNumber(bankNotesMapper[bankNote]).toFormat()}
+                </Button>
+              </Menu.Item>
+            ))}
             <Menu.Item key="reset">
               <Button
                 block
