@@ -12,7 +12,7 @@ export default function ProductPreview({ product, bankNotePayment }) {
     <div className={styles.container}>
       <div className={styles.item} key={product?.name}>
         <Image
-          src={product?.img || emptyImage}
+          src={product?.image || emptyImage}
           fallback={emptyImage}
           className={styles.img}
           alt={`vending machine - ${product?.name}`}

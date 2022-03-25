@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { FormattedMessage, useIntl } from 'react-intl'
-import { Button, Divider, Layout, Menu, Modal } from 'antd'
+import { Button, Divider, Layout, Menu, Modal, Image } from 'antd'
 import BigNumber from 'bignumber.js'
-import { laysImage } from 'assets/images'
+import { emptyImage } from 'assets/images'
 import { productActions, productSelectors } from 'store/product'
 import ProductPreview from 'components/product-preview'
 import {
@@ -147,8 +147,10 @@ export default function Home() {
           <div className={styles.content_container}>
             {products.map((product) => (
               <div className={styles.item} key={product?.name}>
-                <img
-                  src={laysImage}
+                <Image
+                  preview={false}
+                  src={product?.image || ''}
+                  fallback={emptyImage}
                   className={styles.img}
                   alt={`vending machine - ${product?.name}`}
                 />
