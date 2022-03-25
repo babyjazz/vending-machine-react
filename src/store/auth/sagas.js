@@ -7,7 +7,6 @@ function* login(action) {
     const response = yield call(userApi.login, action.payload)
     yield put(authActions.login.success(response))
   } catch (error) {
-    console.log(error)
     yield put(authActions.login.failure(error))
   }
 }

@@ -44,6 +44,7 @@ export const authReducer = handleActions(
       authActions.login.success,
       (state, action) => ({
         ...state,
+        data: action.payload?.data,
         login: {
           ...initialStatus,
           success: true,

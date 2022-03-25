@@ -9,19 +9,33 @@ export default function Router() {
   return (
     <BrowserRouter>
       <Routes>
-        {pages.map(({ Component, path, name, redirect, authProtected }) => (
-          <Route
-            element={
-              authProtected && !isAuthenticated ? (
-                <Navigate to={pageNamePathMap.login} />
-              ) : (
-                <>{redirect ? <Navigate to={redirect} /> : <Component />}</>
-              )
-            }
-            path={path}
-            key={name}
-          />
-        ))}
+        {pages.map(({ Component, path, name, redirect, authProtected }) => {
+          if (authProtected && !isAuthenticated) {
+            return (
+              <Route
+                element={<Navigate to={pageNamePathMap.login} />}
+                path={path}
+                key={name}
+              />
+            )
+          }
+          if (path === pageNamePathMap.login && isAuthenticated) {
+            return (
+              <Route
+                element={<Navigate to={pageNamePathMap.default} />}
+                path={path}
+                key={name}
+              />
+            )
+          }
+          return (
+            <Route
+              element={redirect ? <Navigate to={redirect} /> : <Component />}
+              path={path}
+              key={name}
+            />
+          )
+        })}
       </Routes>
     </BrowserRouter>
   )

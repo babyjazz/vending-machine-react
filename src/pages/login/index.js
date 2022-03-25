@@ -1,11 +1,17 @@
-import { useCallback } from 'react'
-import { useDispatch } from 'react-redux'
-import { authActions } from 'store/auth'
+import { useCallback, useEffect } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { FormattedMessage } from 'react-intl'
+import { authActions, authSelectors } from 'store/auth'
 import { Form, Input, Button, Card, Alert } from 'antd'
+import { useNavigate } from 'react-router-dom'
+import pageNamePathMap from 'routes/page-name-path-map'
 import styles from './index.module.scss'
 
 export default function Login() {
   const dispatch = useDispatch()
+  const { error, success } = useSelector(authSelectors.login)
+  const navigate = useNavigate()
+
   const submitLogin = useCallback(
     (data) => {
       dispatch(authActions.login.start(data))
@@ -16,6 +22,12 @@ export default function Login() {
   const onFinish = (value) => {
     submitLogin(value)
   }
+
+  useEffect(() => {
+    if (success) {
+      navigate(pageNamePathMap.vending)
+    }
+  }, [success])
 
   return (
     <div className={styles.container}>
@@ -44,9 +56,15 @@ export default function Login() {
             <Input.Password />
           </Form.Item>
 
-          <Form.Item>
-            <Alert message="" type="error" />
-          </Form.Item>
+          {error && (
+            <Form.Item wrapperCol={16}>
+              <Alert
+                message={<FormattedMessage id="invalid_credential" />}
+                type="error"
+                className={styles.message}
+              />
+            </Form.Item>
+          )}
 
           <Form.Item wrapperCol={{ offset: 8, span: 16 }}>
             <Button type="primary" htmlType="submit">

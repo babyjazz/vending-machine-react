@@ -5,6 +5,7 @@ import { authReducer } from 'store/auth'
 
 const authPersist = {
   key: 'auth',
+  whitelist: ['data'],
   storage,
 }
 
