@@ -14,7 +14,10 @@ import {
 import { getTotal } from 'utils/get-balance'
 import { orderActions, orderSelectors } from 'store/order'
 import pickBy from 'lodash/pickBy'
-import { isEmpty, upperFirst } from 'lodash'
+import isEmpty from 'lodash/isEmpty'
+import upperFirst from 'lodash/upperFirst'
+import { LogoutOutlined } from '@ant-design/icons'
+import { authActions } from 'store/auth'
 import styles from './index.module.scss'
 
 const { Sider, Header, Content } = Layout
@@ -26,6 +29,10 @@ export default function Home() {
   const order = useSelector(orderSelectors.order)
   const [selectedProduct, setSelectProduct] = useState()
   const [bankNotePayment, setBankNotePayment] = useState(initialBanNotePayment)
+
+  const logout = useCallback(() => {
+    dispatch(authActions.logout())
+  }, [dispatch])
 
   const fetchProducts = useCallback(() => {
     dispatch(productActions.list.start())
@@ -134,12 +141,22 @@ export default function Home() {
   return (
     <Layout className={styles.container}>
       <Header className={styles.header}>
-        <h1 className={styles.title}>
-          <FormattedMessage id="vending.title" />
-        </h1>
-        <p className={styles.desc}>
-          <FormattedMessage id="vending.sub_title" />
-        </p>
+        <div className={styles.title_group}>
+          <h1 className={styles.title}>
+            <FormattedMessage id="vending.title" />
+          </h1>
+          <p className={styles.desc}>
+            <FormattedMessage id="vending.sub_title" />
+          </p>
+        </div>
+        <span
+          className={styles.logout}
+          role="button"
+          tabIndex={0}
+          onClick={logout}
+        >
+          <LogoutOutlined /> Logout
+        </span>
       </Header>
 
       <Layout className="site-layout">

@@ -5,15 +5,28 @@
 
   .header {
     display: flex;
-    align-items: baseline;
+    justify-content: space-between;
 
-    .title {
-      color: $white-color;
+    .title_group {
+      display: flex;
+      align-items: baseline;
+
+      .title {
+        color: $white-color;
+      }
+
+      .desc {
+        margin-left: 10px;
+        color: $gray-color;
+      }
     }
 
-    .desc {
-      margin-left: 10px;
-      color: $gray-color;
+    .logout {
+      color: white;
+
+      &:hover {
+        cursor: pointer;
+      }
     }
   }
 

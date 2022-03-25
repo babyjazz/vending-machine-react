@@ -19,11 +19,7 @@ export const authActions = createActions(
       SUCCESS: undefined,
       FAILURE: undefined,
     },
-    LOGOUT: {
-      START: undefined,
-      SUCCESS: undefined,
-      FAILURE: undefined,
-    },
+    LOGOUT: undefined,
   },
   options,
 )
@@ -64,34 +60,12 @@ export const authReducer = handleActions(
       }),
     ],
     [
-      authActions.logout.start,
+      authActions.logout,
       (state) => ({
         ...state,
-        logout: {
+        data: null,
+        login: {
           ...initialStatus,
-          loading: true,
-        },
-      }),
-    ],
-    [
-      authActions.logout.success,
-      (state, action) => ({
-        ...state,
-        logout: {
-          ...initialStatus,
-          success: true,
-          data: action.payload,
-        },
-      }),
-    ],
-    [
-      authActions.logout.failure,
-      (state, action) => ({
-        ...state,
-        logout: {
-          ...initialStatus,
-          failure: true,
-          error: action.payload,
         },
       }),
     ],
