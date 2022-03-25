@@ -18,6 +18,7 @@ export const orderActions = createActions(
       START: undefined,
       SUCCESS: undefined,
       FAILURE: undefined,
+      RESET: undefined,
     },
   },
   options,
@@ -55,6 +56,13 @@ export const orderReducer = handleActions(
           failure: true,
           error: action.payload,
         },
+      }),
+    ],
+    [
+      orderActions.submit.reset,
+      (state) => ({
+        ...state,
+        submit: initialStatus,
       }),
     ],
   ]),

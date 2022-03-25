@@ -1,6 +1,6 @@
 import PropTypes from 'prop-types'
 import BigNumber from 'bignumber.js'
-import { Image } from 'antd'
+import { Divider, Image } from 'antd'
 import { emptyImage } from 'assets/images'
 import { initialBanNotePayment } from 'constants/all'
 import { getTotal } from 'utils/get-balance'
@@ -12,16 +12,14 @@ export default function ProductPreview({ product, bankNotePayment }) {
     <div className={styles.container}>
       <div className={styles.item} key={product?.name}>
         <Image
-          src={product?.img || ''}
+          src={product?.img || emptyImage}
           fallback={emptyImage}
           className={styles.img}
           alt={`vending machine - ${product?.name}`}
         />
         <h1 className={styles.price}>฿{product?.price || '-'}</h1>
-        {/* <p>Amount: 1</p> */}
-        <p>
-          <FormattedMessage id="product_preview.insert_coin" />
-        </p>
+        <Divider />
+        <FormattedMessage id="product_preview.insert_coin" />
         <p className={styles.fill_coin}>
           ฿{new BigNumber(getTotal(bankNotePayment)).toFormat()}
         </p>

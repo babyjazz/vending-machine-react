@@ -1,5 +1,6 @@
 import { takeEvery, call, put } from 'redux-saga/effects'
 import { productApi } from 'api'
+import { orderActions } from 'store/order'
 import { productActions } from './reducers'
 
 function* listProduct(action) {
@@ -13,6 +14,7 @@ function* listProduct(action) {
 
 function* listProductWatcher() {
   yield takeEvery(productActions.list.start.toString(), listProduct)
+  yield takeEvery(orderActions.submit.success.toString(), listProduct)
 }
 
 const productSagas = { listProductWatcher }

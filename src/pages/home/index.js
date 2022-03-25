@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { FormattedMessage } from 'react-intl'
-import { Button, Layout, Menu } from 'antd'
+import { Button, Divider, Layout, Menu, Modal } from 'antd'
 import BigNumber from 'bignumber.js'
 import { laysImage } from 'assets/images'
 import { productActions, productSelectors } from 'store/product'
@@ -12,8 +12,9 @@ import {
   initialBanNotePayment,
 } from 'constants/all'
 import { getTotal } from 'utils/get-balance'
-import { orderActions } from 'store/order'
+import { orderActions, orderSelectors } from 'store/order'
 import pickBy from 'lodash/pickBy'
+import { isEmpty, upperFirst } from 'lodash'
 import styles from './index.module.scss'
 
 const { Sider, Header, Content } = Layout
@@ -21,6 +22,7 @@ const { Sider, Header, Content } = Layout
 export default function Home() {
   const dispatch = useDispatch()
   const { data: products = [] } = useSelector(productSelectors.products)
+  const order = useSelector(orderSelectors.order)
   const [selectedProduct, setSelectProduct] = useState()
   const [bankNotePayment, setBankNotePayment] = useState(initialBanNotePayment)
 
@@ -35,9 +37,45 @@ export default function Home() {
     [dispatch],
   )
 
+  //   const resetPurchaseOrderState = useCallback(() => {
+  //     dispatch(orderActions.submit.reset())
+  //   }, [dispatch])
+
   useEffect(() => {
     fetchProducts()
   }, [fetchProducts])
+
+  useEffect(() => {
+    if (order?.success) {
+      const changes = order?.data?.changes
+      const changesObj = Object.keys(order?.data?.changes).map((key) => ({
+        coin: key,
+        amount: changes[key],
+      }))
+      Modal.success({
+        key: 'not',
+        title: 'Order successful',
+        duration: 1000,
+        content: (
+          <div>
+            <Divider />
+            {!isEmpty(changesObj) && (
+              <>
+                <span>You get change for</span>
+                {changesObj.map((obj) => (
+                  <li>
+                    {upperFirst(obj?.coin)} - {obj?.amount} Coins
+                  </li>
+                ))}
+              </>
+            )}
+            <Divider />
+            <span>Thank you, Please come back to visit us again</span>
+          </div>
+        ),
+      })
+    }
+  }, [order])
 
   const handleSelectProduct = (product) => {
     setSelectProduct(product)
@@ -46,6 +84,10 @@ export default function Home() {
   const handleResetsPayBankNote = () => {
     setBankNotePayment(initialBanNotePayment)
   }
+
+  useEffect(() => {
+    handleResetsPayBankNote()
+  }, [selectedProduct])
 
   const handlePayBankNote = (bankNote) => {
     setBankNotePayment({
@@ -105,24 +147,26 @@ export default function Home() {
           </div>
         </Content>
 
-        <Sider className={styles.sider_container} width={400}>
+        <Sider width={400}>
           <ProductPreview
             product={selectedProduct}
             bankNotePayment={bankNotePayment}
           />
 
           <Menu mode="inline" defaultSelectedKeys={['1']}>
-            {bankNotesArray.map((bankNote) => (
-              <Menu.Item key={bankNote}>
-                <Button
-                  block
-                  onClick={() => handlePayBankNote(bankNote)}
-                  disabled={!selectedProduct}
-                >
-                  {new BigNumber(bankNotesMapper[bankNote]).toFormat()}
-                </Button>
-              </Menu.Item>
-            ))}
+            {bankNotesArray
+              .sort((a, b) => b?.createdAt - a?.createdAt)
+              .map((bankNote) => (
+                <Menu.Item key={bankNote}>
+                  <Button
+                    block
+                    onClick={() => handlePayBankNote(bankNote)}
+                    disabled={!selectedProduct}
+                  >
+                    {new BigNumber(bankNotesMapper[bankNote]).toFormat()}
+                  </Button>
+                </Menu.Item>
+              ))}
             <Menu.Item key="reset">
               <Button
                 block
@@ -139,6 +183,7 @@ export default function Home() {
                 block
                 disabled={!isSufficientToBuy()}
                 onClick={handlePurchaseOrder}
+                loading={order?.loading}
               >
                 <FormattedMessage id="purchase" />
               </Button>

@@ -5,5 +5,7 @@
   "reset": "RESET",
   "vending.title": "Vending Machine",
   "vending.sub_title": "Best food and drink deliver to your hand",
-  "product_preview.insert_coin": "Please insert your Coins/Banknotes: "
+  "product_preview.insert_coin": "Please insert your Coins/Banknotes: ",
+  "coin": "Coin",
+  "banknote": "Banknote"
 }
