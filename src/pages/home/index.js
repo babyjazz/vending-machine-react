@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
-import { FormattedMessage } from 'react-intl'
+import { FormattedMessage, useIntl } from 'react-intl'
 import { Button, Divider, Layout, Menu, Modal } from 'antd'
 import BigNumber from 'bignumber.js'
 import { laysImage } from 'assets/images'
@@ -20,6 +20,7 @@ import styles from './index.module.scss'
 const { Sider, Header, Content } = Layout
 
 export default function Home() {
+  const intl = useIntl()
   const dispatch = useDispatch()
   const { data: products = [] } = useSelector(productSelectors.products)
   const order = useSelector(orderSelectors.order)
@@ -46,6 +47,8 @@ export default function Home() {
   }, [fetchProducts])
 
   useEffect(() => {
+    // Show modal success/failure when order finish
+
     if (order?.success) {
       const changes = order?.data?.changes
       const changesObj = Object.keys(order?.data?.changes).map((key) => ({
@@ -53,9 +56,7 @@ export default function Home() {
         amount: changes[key],
       }))
       Modal.success({
-        key: 'not',
-        title: 'Order successful',
-        duration: 1000,
+        title: intl.formatMessage({ id: 'order.successful' }),
         afterClose: () => {
           handleResetsPayBankNote()
           setSelectProduct()
@@ -65,18 +66,37 @@ export default function Home() {
             <Divider />
             {!isEmpty(changesObj) && (
               <>
-                <span>You get change for</span>
+                <span>
+                  {intl.formatMessage({
+                    id: 'order.successful.content.you_get_change',
+                  })}
+                </span>
                 {changesObj.map((obj) => (
                   <li>
                     {upperFirst(obj?.coin)} - {obj?.amount} Coins
                   </li>
                 ))}
+                <Divider />
               </>
             )}
-            <Divider />
-            <span>Thank you, Please come back to visit us again</span>
+            <span>
+              {intl.formatMessage({ id: 'order.successful.content.thankyou' })}
+            </span>
           </div>
         ),
+      })
+    }
+    if (order?.failure) {
+      Modal.error({
+        title: intl.formatMessage({ id: 'order.failure' }),
+        afterClose: () => {
+          handleResetsPayBankNote()
+          setSelectProduct()
+        },
+        content: intl.formatMessage({
+          id: order?.error?.response?.data?.message,
+          defaultMessage: 'Please try again',
+        }),
       })
     }
   }, [order])
@@ -139,8 +159,13 @@ export default function Home() {
                 <Button
                   type="primary"
                   onClick={() => handleSelectProduct(product)}
+                  disabled={product?.amount <= 0}
                 >
-                  <FormattedMessage id="purchase" />
+                  {product?.amount <= 0 ? (
+                    <FormattedMessage id="purchase_btn.out_of_stock" />
+                  ) : (
+                    <FormattedMessage id="purchase" />
+                  )}
                 </Button>
               </div>
             ))}

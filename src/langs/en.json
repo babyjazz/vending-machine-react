@@ -7,5 +7,13 @@
   "vending.sub_title": "Best food and drink deliver to your hand",
   "product_preview.insert_coin": "Please insert your Coins/Banknotes: ",
   "coin": "Coin",
-  "banknote": "Banknote"
+  "banknote": "Banknote",
+  "change_is_not_enough": "Insufficient change",
+  "order.successful": "Order successful",
+  "order.successful.content.you_get_change": "You get change for",
+  "order.successful.content.thankyou": "Thank you, Please come back to visit us again",
+  "order.failure": "Order failure",
+  "out_of_stock": "Product is out of stock",
+  "failure": "Someething went wrong, Please try again",
+  "purchase_btn.out_of_stock": "Out of stock"
 }
