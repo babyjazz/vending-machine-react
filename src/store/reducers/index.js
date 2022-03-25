@@ -1,15 +1,15 @@
 import { combineReducers } from 'redux'
 import { persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
-import { userReducer } from 'store/user'
+import { authReducer } from 'store/auth'
 
-const userPersist = {
-  key: 'user',
+const authPersist = {
+  key: 'auth',
   storage,
 }
 
 const rootReducer = combineReducers({
-  user: persistReducer(userPersist, userReducer),
+  auth: persistReducer(authPersist, authReducer),
 })
 
 export default rootReducer

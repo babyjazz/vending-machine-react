@@ -1,12 +1,9 @@
-import { get } from './api-creator'
+import { post } from './api-creator'
 
-function listUser(data) {
-  if (data?.userId) {
-    return get(`/users/${data?.userId}?delay=1`)
-  }
-  return get('/users?delay=1')
+function login(data) {
+  return post('/user/login', data)
 }
 
-const userApi = { listUser }
+const userApi = { login }
 
 export default userApi

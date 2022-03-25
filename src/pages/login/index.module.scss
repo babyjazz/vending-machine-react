@@ -1,0 +1,16 @@
+@import 'styles/global.scss';
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  .title {
+    margin-top: 120px;
+    color: $gray-color;
+  }
+
+  .card {
+  }
+}

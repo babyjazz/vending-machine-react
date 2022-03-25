@@ -1,6 +1,7 @@
 import { hot } from 'react-hot-loader/root'
 import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
+import 'api/api-interceptor'
 import { store, persistor } from './store'
 import Router from './routes'
 

@@ -15,17 +15,19 @@ api.interceptors.request.use((config) => {
   return config
 })
 
+function ApiError(error) {
+  const { response } = error
+  this.response = response
+}
+
 api.interceptors.response.use(
   (response) => {
     return response
   },
   (error) => {
-    // TODO checkc invalid token or unauthorized then logout
-    // const state = store.getState()
-    // if (isInvalidToken(errorObj)) {
-    // return login function here
-    // }
+    const errorObj = new ApiError(error)
+    // NOTE can implement refresh token here when statusCode and message means to refresh token
 
-    return Promise.reject(error)
+    return Promise.reject(errorObj)
   },
 )
