@@ -1,3 +1,9 @@
 {
-  "invalid_credential": "Invalid Credential"
+  "invalid_credential": "Invalid Credential",
+  "purchase": "Purchase",
+  "amount": "Amount",
+  "reset": "RESET",
+  "vending.title": "Vending Machine",
+  "vending.sub_title": "Best food and drink deliver to your hand",
+  "product_preview.insert_coin": "Please insert your Coins/Banknotes: "
 }

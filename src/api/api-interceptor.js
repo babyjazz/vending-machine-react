@@ -3,12 +3,12 @@ import { api } from './api-creator'
 
 api.interceptors.request.use((config) => {
   const state = store.getState()
-  if (state?.user?.accessToken) {
+  if (state?.auth?.data?.accessToken) {
     return {
       ...config,
       headers: {
         ...config.headers,
-        Authorization: `Bearer ${state.user.access_token}`,
+        Authorization: `Bearer ${state?.auth?.data?.accessToken}`,
       },
     }
   }

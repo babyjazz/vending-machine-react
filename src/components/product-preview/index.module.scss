@@ -1,0 +1,21 @@
+@import 'styles/global.scss';
+
+.container {
+  .item {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background-color: $white-color;
+    padding: 20px;
+
+    .price {
+      color: $green-color;
+      font-size: 2em;
+    }
+
+    .fill_coin {
+      font-weight: 600;
+      font-size: 1.8em;
+    }
+  }
+}
