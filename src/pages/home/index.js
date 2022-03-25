@@ -37,9 +37,9 @@ export default function Home() {
     [dispatch],
   )
 
-  //   const resetPurchaseOrderState = useCallback(() => {
-  //     dispatch(orderActions.submit.reset())
-  //   }, [dispatch])
+  const handleResetsPayBankNote = () => {
+    setBankNotePayment(initialBanNotePayment)
+  }
 
   useEffect(() => {
     fetchProducts()
@@ -56,6 +56,10 @@ export default function Home() {
         key: 'not',
         title: 'Order successful',
         duration: 1000,
+        afterClose: () => {
+          handleResetsPayBankNote()
+          setSelectProduct()
+        },
         content: (
           <div>
             <Divider />
@@ -79,10 +83,6 @@ export default function Home() {
 
   const handleSelectProduct = (product) => {
     setSelectProduct(product)
-  }
-
-  const handleResetsPayBankNote = () => {
-    setBankNotePayment(initialBanNotePayment)
   }
 
   useEffect(() => {
