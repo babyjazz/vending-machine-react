@@ -79,7 +79,7 @@ export default function Home() {
                   })}
                 </span>
                 {changesObj.map((obj) => (
-                  <li>
+                  <li key={obj.coin}>
                     {upperFirst(obj?.coin)} - {obj?.amount} Coins
                   </li>
                 ))}
@@ -159,9 +159,9 @@ export default function Home() {
         </span>
       </Header>
 
-      <Layout className="site-layout">
-        <Content>
-          <div className={styles.content_container}>
+      <Layout>
+        <Content className={styles.content_container}>
+          <div className={styles.content}>
             {products.map((product) => (
               <div className={styles.item} key={product?.name}>
                 <Image
@@ -191,7 +191,7 @@ export default function Home() {
           </div>
         </Content>
 
-        <Sider width={400}>
+        <Sider className={styles.sider_container} width={400}>
           <ProductPreview
             product={selectedProduct}
             bankNotePayment={bankNotePayment}
@@ -221,6 +221,7 @@ export default function Home() {
 
             <div style={{ padding: 20 }}>
               <Button
+                type="primary"
                 size="large"
                 block
                 disabled={!isSufficientToBuy()}

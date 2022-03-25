@@ -31,27 +31,38 @@
   }
 
   .content_container {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    .content {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
 
-    .item {
-      display: flex;
-      justify-content: center;
-      flex-direction: column;
-      align-items: center;
-      text-align: center;
-      background-color: $white-color;
-      padding: 20px;
+      @include media('<desktop') {
+        grid-template-columns: repeat(2, 1fr);
+      }
 
-      .img {
-        max-width: 200px;
+      @include media('<tablet') {
+        grid-template-columns: 100%;
+      }
+
+      .item {
+        display: flex;
+        justify-content: center;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        background-color: $white-color;
+        padding: 20px;
+
+        .img {
+          max-width: 200px;
+        }
       }
     }
   }
-}
 
-.notification {
-  .hl {
-    font-weight: 600;
+  .sider_container {
+    @include media('<desktop') {
+      flex: 0 0 100% !important;
+      min-width: unset !important;
+    }
   }
 }

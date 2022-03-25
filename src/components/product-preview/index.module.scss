@@ -8,6 +8,11 @@
     background-color: $white-color;
     padding: 20px;
 
+    .img {
+      width: 100%;
+      max-width: 400px;
+    }
+
     .price {
       color: $green-color;
       font-size: 2em;
