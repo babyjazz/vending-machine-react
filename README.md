@@ -1,6 +1,13 @@
 # Vending machine playgrond
 
-## requirement
+## Features
+- Purchase snack with each coin and banknote
+- Login (Not full authen flow)
+- API Interceptor
+- Use Antd, Sass, Redux-Saga
+
+
+## Requirement
 - node V16
 - yarn
 - git
@@ -23,6 +30,6 @@ Production will built in build folder
 ---
 
 ## Note
-I don't add responsive design, sorry for that
+I don't add responsive design, sorry for that. but I added the way how I make responsive in some file
 
 I remove .env* from gitignore for easier to setup
